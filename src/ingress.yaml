@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-ingress
+  namespace: 1-5
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: netologyingress.ru
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: connector-service
+            port:
+              number: 9001
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: connector-service
+            port:
+              number: 9002
